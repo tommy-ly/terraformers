@@ -1,0 +1,26 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "accounts_Mappy_name": {
+            "defaultValue": "Mappy2",
+            "type": "String"
+        }
+    },
+    "variables": {},
+    "resources": [
+        {
+            "type": "Microsoft.Maps/accounts",
+            "apiVersion": "2018-05-01",
+            "name": "[parameters('accounts_Mappy_name')]",
+            "location": "global",
+            "sku": {
+                "name": "s0",
+                "tier": "Standard"
+            },
+            "properties": {
+                "x-ms-client-id": "3e0b030f-7d01-461a-a272-64fb71d18a67"
+            }
+        }
+    ]
+}
