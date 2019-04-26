@@ -1,4 +1,5 @@
 provider "azurerm" {
+  use_msi = true
 }
 
 data "azuread_subscription" "current" {}
@@ -20,8 +21,6 @@ resource "azuread_role_assignment" "test" {
   role_definition_id = "${data.azuread_subscription.subscription.id}${data.azuread_builtin_role_definition.contributor.id}"
   principal_id       = "${lookup(azuread_virtual_machine.test.identity[0], "principal_id")}"
 }
-
-export ARM_USE_MSI=true
 
 resource "azurerm_template_deployment" "test" {
     name                = "acctesttemplate-01"
