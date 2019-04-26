@@ -5,7 +5,7 @@ provider "azurerm" {
 data "azuread_subscription" "current" {}
 
 resource "azurerm_resource_group" "rg" {
-    name = "testResourceGroup"
+    name = "testResourceGroup2"
     location = "westus"
     identity = {
       type = "SystemAssigned"
@@ -15,6 +15,7 @@ resource "azurerm_resource_group" "rg" {
 data "azuread_builtin_role_definition" "contributor" {
   name = "Contributor"
 }
+
 resource "azuread_role_assignment" "test" {
   name               = "${azurerm_resource_group.rg.name}"
   scope              = "${data.azuread_subscription.current.primary.id}"
