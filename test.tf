@@ -1,26 +1,13 @@
 provider "azurerm" {
-  use_msi = true
+  subscription_id = "${var.subscription_id}"
+  tenant_id       = "${var.tenant_id}"
+  client_id       = "${var.client_id}"
+  client_secret   = "${var.client_secret}"
 }
-
-data "azuread_subscription" "current" {}
 
 resource "azurerm_resource_group" "rg" {
-    name = "testResourceGroup2"
+    name = "testResourceGroup"
     location = "westus"
-    identity = {
-      type = "SystemAssigned"
-    }
-}
-
-data "azuread_builtin_role_definition" "contributor" {
-  name = "Contributor"
-}
-
-resource "azuread_role_assignment" "test" {
-  name               = "${azurerm_resource_group.rg.name}"
-  scope              = "${data.azuread_subscription.current.primary.id}"
-  role_definition_id = "${data.azuread_subscription.current.subscription.id}${data.azuread_builtin_role_definition.contributor.id}"
-  principal_id       = "${lookup(azurerm_resource_group.rg.identity[0], "principal_id")}"
 }
 
 resource "azurerm_template_deployment" "test" {
