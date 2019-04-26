@@ -16,10 +16,10 @@ data "azuread_builtin_role_definition" "contributor" {
   name = "Contributor"
 }
 resource "azuread_role_assignment" "test" {
-  name               = "${azuread_virtual_machine.test.name}"
+  name               = "${azurerm_resource_group.rg.name}"
   scope              = "${data.azuread_subscription.primary.id}"
   role_definition_id = "${data.azuread_subscription.subscription.id}${data.azuread_builtin_role_definition.contributor.id}"
-  principal_id       = "${lookup(azuread_virtual_machine.test.identity[0], "principal_id")}"
+  principal_id       = "${lookup(azurerm_resource_group.rg.identity[0], "principal_id")}"
 }
 
 resource "azurerm_template_deployment" "test" {
