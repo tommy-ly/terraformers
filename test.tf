@@ -1,3 +1,7 @@
+terraform {
+  backend "azurerm" {}
+}
+
 provider "azurerm" {}
 
 resource "azurerm_resource_group" "rg" {
