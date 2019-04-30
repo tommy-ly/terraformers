@@ -4,6 +4,19 @@ terraform {
 
 provider "azurerm" {}
 
+resource "azurerm_storage_account" "sa" {
+    name          = "testResourceGroup"
+    account_kind  = "BlobStorage"
+    account_tier  = "Standard"
+}
+
+resource "azurerm_storage_container" "test" {
+  name                  = "watdis"
+  resource_group_name   = "testResourceGroup"
+  storage_account_name  = "horselizard"
+  container_access_type = "private"
+}
+
 resource "azurerm_resource_group" "resourceGroup" {
     name     = "testResourceGroup"
     location = "ukwest"
